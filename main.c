@@ -6,7 +6,7 @@
 /*   By: dmartiro <dmartiro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/05 06:17:30 by dmartiro          #+#    #+#             */
-/*   Updated: 2022/04/11 05:49:30 by dmartiro         ###   ########.fr       */
+/*   Updated: 2022/04/13 03:57:47 by dmartiro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,19 @@
 #include "get_next_line.h"
 #include <string.h>
 #define BUFFER_SIZE 8
+
+size_t	get_list_size(represent *node)
+{
+	int	i;
+
+	i = 0;
+	while(node)
+	{
+		node = node->next;
+		i++;
+	}
+	return (i);
+}
 
 char	*findnl(const char *buffer, int syb)
 {
@@ -29,56 +42,57 @@ char	*findnl(const char *buffer, int syb)
 		return (0);
 }
 
-size_t	get_list_length(represent *node)
+void	del_list(represent *link)
 {
-	int	i;
-
-	i = 0;
-	while(node)
+	represent	*next_node_list;
+	while(link)
 	{
-		node = node->next;
-		i++;
+		next_node_list = link->next;
+		free(link);
+		link = next_node_list;
 	}
-	return (i);
 }
 
-int get_line(represent *link)
+char *get_string(represent *link)
 {
-	char	*newstring;
-	size_t	nodes;
-	size_t	c;
-	size_t	i;
-	nodes = get_list_length(link);
-	newstring = malloc(sizeof(char) * (nodes * (BUFFER_SIZE + 1)));
-	while(i < nodes)
+	represent	*lst_addr;
+	char		*getline;
+	int			c, t;
+
+	lst_addr = link;
+	getline = (char *)malloc((sizeof(char) * get_list_size(link) * BUFFER_SIZE) + 1);
+	if(!getline)
+		return (NULL);
+	t = 0;
+	while(link)
 	{
-		c = 0;
-		while(link->byteofline)
+		c = -1;
+		while(link->byteofline[++c])
 		{
-			newstring[c] = link->byteofline[c];
-			link = link->next;
-			c++;
-			if()
+			getline[t] = link->byteofline[c];
+			t++;
 		}
-		i++;
+		link = link->next;
 	}
-	return (nodes);
+	getline[t] = '\0';
+	del_list(lst_addr);
+	return (getline);
+}
+
+size_t	ft_strlen(const char *c)
+{
+	size_t	i;
+
+	i = 0;
+	while (c[i] != '\0')
+		i++;
+	return (i);
 }
 
 int main(void)
 {
-	represent *line;
-	line = (represent *)malloc(sizeof(represent));
-	line->byteofline = "Lorem Ip";
-	line->prev = NULL;
-	
-	line->next = (represent *)malloc(sizeof(represent));
-	line->next->prev = line;
-	line->next->byteofline = "sum is s";
-	line->next->next = NULL;
-
-	
-	printf("%d", get_line(line));
+	int fd = 3;
+	get_next_line(fd);
 	return (0);
 }
 

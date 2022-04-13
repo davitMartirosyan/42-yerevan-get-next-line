@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.h                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dmartiro <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: dmartiro <dmartiro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/04 19:23:12 by dmartiro          #+#    #+#             */
-/*   Updated: 2022/04/04 19:23:13 by dmartiro         ###   ########.fr       */
+/*   Updated: 2022/04/13 04:27:27 by dmartiro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,15 +29,10 @@ typedef struct represent
 } represent;
 
 
-size_t  ft_strlen(const char *c);
-
-// int     ft_strchr(const char *buffer, int ch);
-
-// char    *get_next_line(int fd);
-char	*ft_strjoin(char const *s1, char const *s2);
-char	*ft_strdup(const char *s);
-
-void	*ft_memcpy(void *dest, const void *src, size_t n);
-void	*ft_memmove(void *dest, const void *src, size_t n);
+char    *get_next_line(int fd);
+char	*findnl(const char *buffer, int syb);
+char    *get_string(represent *link);
+size_t	get_list_size(represent *node);
+void	d_list(represent *link);
 
 #endif
