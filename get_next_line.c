@@ -29,6 +29,8 @@ char    *get_next_line(int fd)
    char        *string;
    char        *oneline;
 
+   if(fd < 0 || BUFFER_SIZE <= 0)
+      return (NULL);
    list = create_buff_list(fd, truck);
    string = get_string(list);
    oneline = line_by_line(string);
@@ -41,7 +43,6 @@ int main(void)
 {
    int fd = open("file.txt", O_RDONLY);
    get_next_line(fd);
-
 }
 
 
