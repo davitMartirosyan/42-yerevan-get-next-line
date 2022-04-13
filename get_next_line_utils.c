@@ -11,7 +11,6 @@
 /* ************************************************************************** */
 
 #include "get_next_line.h"
-#define BUFFER_SIZE 5
 
 char	*findnl(const char *buffer, int syb)
 {

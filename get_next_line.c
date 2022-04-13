@@ -11,44 +11,37 @@
 /* ************************************************************************** */
 
 #include "get_next_line.h"
-#ifndef BUFFER_SIZE
-# define BUFFER_SIZE 10
-#endif
+
+char  *line_by_line(char *string)
+{
+
+}
 
 represent   *create_buff_list(int fd, char *truck)
 {
-    represent   *list;
-    represent   *addr;
-    char        *buffer;
-    int         rd;
 
-    buffer = (char *)malloc(sizeof(char) * (BUFFER_SIZE + 1));
-    list = (represent *)malloc(sizeof(represent));
-    list->byteofline = truck;
-    addr = list;
-    while((rd = read(fd, buffer, BUFFER_SIZE)))
-    {
-       
-    }
-    // printf("%s", list->byteofline);
-    free(buffer);
-    return (list);
 }
 
 char    *get_next_line(int fd)
 {
-   static char  *truck = "";
-   represent *list = create_buff_list(fd, truck);
-   printf("%s", get_string(list));
-   return ("okay");
-   
+   static char *truck = "";
+   struct represent  *list;
+   char        *string;
+   char        *oneline;
+
+   list = create_buff_list(fd, truck);
+   string = get_string(list);
+   oneline = line_by_line(string);
+   truck = findnl(string, '\n');
+   free(string);
+   return (oneline);
 }
 
 int main(void)
 {
    int fd = open("file.txt", O_RDONLY);
    get_next_line(fd);
-   
+
 }
 
 
