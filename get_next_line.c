@@ -90,7 +90,7 @@ represent   *create_buff_list(int fd, char *truck)
 
 char    *get_next_line(int fd)
 {
-    static char *truck = "";
+    static char *truck;
     char        *string;
     char        *oneline;
     represent   *list;
