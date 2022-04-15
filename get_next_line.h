@@ -24,15 +24,19 @@
 typedef struct represent
 {
     char *byteofline;
-    struct represent *prev;
     struct represent *next;
 } represent;
 
+size_t      get_list_size(represent *node);
 
-char    *get_next_line(int fd);
-char	*findnl(const char *buffer, int syb);
-char    *get_string(represent *link);
-size_t	get_list_size(represent *node);
-void	d_list(represent *link);
+void        d_list(represent *link);
+void        addback(represent **list, represent *newnode);
+
+represent	*last(represent *lst);
+represent   *create_buff_list(int fd, char *truck);
+
+char        *findnl(const char *buffer, int syb);
+char        *get_string(represent *link);
+char        *get_next_line(int fd);
 
 #endif

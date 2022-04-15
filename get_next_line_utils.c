@@ -39,33 +39,32 @@ size_t	get_list_size(represent *node)
 	return (i);
 }
 
-//return joined string from all nodes  [<-][a][->] - [<-][b][->] - [<-][c][->] ----> abc
-char *get_string(represent *link)
+represent	*last(represent *lst)
 {
-	represent	*lst_addr;
-	char		*getline;
-	int			c;
-	int			t;
-
-	lst_addr = link;
-	getline = (char *)malloc((sizeof(char) * get_list_size(link) * BUFFER_SIZE) + 1);
-	if(!getline)
-		return (NULL);
-	t = 0;
-	while(link)
+	if (lst == NULL)
+		return (0);
+	while (lst)
 	{
-		c = -1;
-		while(link->byteofline[++c])
-		{
-			getline[t] = link->byteofline[c];
-			t++;
-		}
-		link = link->next;
+		if (lst->next == NULL)
+			return (lst);
+		lst = lst->next;
 	}
-	getline[t] = '\0';
-	d_list(lst_addr);
-	return (getline);
+	return (lst);
 }
+
+void	addback(represent **lst, represent *newnode)
+{
+	represent	*list;
+
+	if (*lst)
+	{
+		list = last(*lst);
+      list->next = &*newnode;
+	}
+   else
+      *lst = newnode;
+}
+
 
 //free list
 void	d_list(represent *link)
