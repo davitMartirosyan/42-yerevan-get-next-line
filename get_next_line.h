@@ -10,8 +10,12 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef GET_NEXT_LINE_H
+# ifndef GET_NEXT_LINE_H
 # define GET_NEXT_LINE_H
+
+
+# define BUFFER_SIZE 10
+
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -33,10 +37,10 @@ void        d_list(represent *link);
 void        addback(represent **list, represent *newnode);
 
 represent	*last(represent *lst);
-represent   *create_buff_list(int fd, char *truck);
+void        create_buff_list(int fd, represent **list, int *readed);
 
 char        *findnl(const char *buffer, int syb);
-char        *get_string(represent *link);
+char        *get_string(represent *link, int *readed);
 char        *get_next_line(int fd);
 
 #endif

@@ -54,7 +54,7 @@ represent	*last(represent *lst)
 
 void	addback(represent **lst, represent *newnode)
 {
-	represent	*list;
+	struct represent	*list;
 
 	if (*lst)
 	{
@@ -69,7 +69,7 @@ void	addback(represent **lst, represent *newnode)
 //free list
 void	d_list(represent *link)
 {
-	represent	*next_node_list;
+	struct represent	*next_node_list;
 	while(link)
 	{
 		next_node_list = link->next;

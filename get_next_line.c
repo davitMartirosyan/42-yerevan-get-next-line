@@ -35,7 +35,7 @@ char *line_by_line(const char *string)
 }
 
 //return joined string from all nodes  [<-][a][->] - [<-][b][->] - [<-][c][->] ----> abc
-char *get_string(represent *link)
+char *get_string(represent *link, int *readed)
 {
 	represent	*lst_addr;
 	char		*getline;
@@ -43,8 +43,8 @@ char *get_string(represent *link)
 	int			t;
 
 	lst_addr = link;
-	getline = (char *)malloc((sizeof(char) * get_list_size(link) * BUFFER_SIZE) + 1);
-	if(!getline)
+	
+	if(!(getline = (char *)malloc((sizeof(char) * (*readed + 1)))))
 		return (NULL);
 	t = 0;
 	while(link)
@@ -62,46 +62,47 @@ char *get_string(represent *link)
 	return (getline);
 }
 
-represent   *create_buff_list(int fd, char *truck)
+void  create_buff_list(int fd, represent **list, int *readed)
 {
-   represent *list;
-   represent *back;
-   int rd;
    char *buffer;
-
-   buffer = (char *)malloc(sizeof(char) * (BUFFER_SIZE + 1));
-   list = (represent *)malloc(sizeof(represent));
-   list->byteofline = truck;
-   back = NULL;
+   int rd;
+   if(!(buffer = (char *)malloc(sizeof(char) * (BUFFER_SIZE + 1))))
+      return ;
    while((rd = read(fd, buffer, BUFFER_SIZE)))
    {
-      buffer[rd] = 0;
-      represent *temp;
-      temp = (represent *)malloc(sizeof(represent));
-      temp->byteofline = buffer;
-      temp->next = NULL;
+      buffer[rd] = '\0';
+      struct represent *node;
+      node = (represent *)malloc(sizeof(represent));
+      node->byteofline = buffer;
+      node->next = NULL;
+      // printf("%s", node->byteofline);
+      addback(list, node);
       if(findnl(buffer, '\n'))
-      {
-         
-      }
+         break;
+      node = node->next;
    }
-   return (list);
+   free(buffer);
 }
 
 char    *get_next_line(int fd)
 {
-    static char *truck;
-    char        *string;
-    char        *oneline;
-    represent   *list;
+    static char         *truck;
+    char                *string;
+    char                *oneline;
+    struct represent    *list;
+    int                 readed;
     
     if(fd < 0 || BUFFER_SIZE <= 0 || read(fd, 0, 0) < 0)
         return (NULL);
-   list = create_buff_list(fd, (truck == NULL) ? "" : truck);
-   string = get_string(list);
-   oneline = line_by_line(string);
-   truck = findnl(string, '\n');
-   printf("hello");
+   readed = 0;
+   list = (represent *)malloc(sizeof(represent));
+   list->byteofline = truck;
+   list->next = NULL;
+   create_buff_list(fd, &list, &readed);
+   printf("%s", list->next->byteofline);
+   // string = get_string(list, &readed);
+   // oneline = line_by_line(string);
+   // truck = findnl(string, '\n');
    return (string);
 }
 
