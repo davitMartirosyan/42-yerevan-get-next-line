@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.c                                    :+:      :+:    :+:   */
+/*   get_next_line_bonus.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dmartiro <dmartiro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/04/17 05:37:44 by dmartiro          #+#    #+#             */
-/*   Updated: 2022/04/17 09:52:28 by dmartiro         ###   ########.fr       */
+/*   Created: 2022/04/17 09:10:42 by dmartiro          #+#    #+#             */
+/*   Updated: 2022/04/18 21:23:05 by dmartiro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
+#include "get_next_line_bonus.h"
 
 char	*after(char *buffer)
 {
@@ -92,15 +92,16 @@ char	*read_line(int fd, char *buffer)
 
 char	*get_next_line(int fd)
 {
-	static char	*stat;
+	static char	*stat[__MAX__];
 	char		*oneline;
 
-	if (fd < 0 || BUFFER_SIZE <= 0 || read(fd, 0, 0) < 0)
+	if (fd < 0 || BUFFER_SIZE <= 0 || read(fd, 0, 0) < 0
+		|| fd > __MAX__ - 1)
 		return (NULL);
-	stat = read_line(fd, stat);
-	if (!stat)
+	stat[fd] = read_line(fd, stat[fd]);
+	if (!stat[fd])
 		return (NULL);
-	oneline = before(stat);
-	stat = after(stat);
+	oneline = before(stat[fd]);
+	stat[fd] = after(stat[fd]);
 	return (oneline);
 }

@@ -1,17 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.h                                    :+:      :+:    :+:   */
+/*   get_next_line_bonus.h                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dmartiro <dmartiro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/04/17 05:27:36 by dmartiro          #+#    #+#             */
-/*   Updated: 2022/04/17 10:09:00 by dmartiro         ###   ########.fr       */
+/*   Created: 2022/04/17 09:11:38 by dmartiro          #+#    #+#             */
+/*   Updated: 2022/04/18 21:22:26 by dmartiro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef GET_NEXT_LINE_H
-# define GET_NEXT_LINE_H
+#ifndef GET_NEXT_LINE_BONUS_H
+# define GET_NEXT_LINE_BONUS_H
+
+# define __MAX__ 65536
 
 # include <stdio.h>
 # include <stdlib.h>
